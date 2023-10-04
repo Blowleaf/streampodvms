@@ -34,7 +34,7 @@ Automated script - tested on Ubuntu 20, Ubuntu 22 and Debian Buster
 
 ```bash
 mkdir /home/mediacms.io && cd /home/mediacms.io/
-git clone https://github.com/mediacms-io/mediacms
+git clone https://github.com/Blowleaf/streampodvms
 cd /home/mediacms.io/mediacms/ && bash ./install.sh
 ```
 
