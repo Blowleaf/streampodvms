@@ -21,7 +21,7 @@ module.exports = {
       },
     ],
     belowNavMenu: null,
-    footer: 'Powered by <a href="//demo.mediacms.io" title="mediacms.io" target="_blank">mediacms.io</a>',
+    footer: 'Powered by <a href="//streampod.io" title="mediacms.io" target="_blank">StreamPods</a>',
   },
   uploader: {
     belowUploadArea: '',
