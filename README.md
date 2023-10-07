@@ -65,6 +65,12 @@ Visit [Configuration](docs/admins_docs.md#5-configuration) page.
 * [Administrators documentation](docs/admins_docs.md) page
 * [Developers documentation](docs/developers_docs.md) page
 
+## Credits
+
+Foked from Original GitHub repo by Markos Gogoulos and Yiannis Stergiou; https://github.com/mediacms-io/mediacms
+
 ## License
 
 MediaCMS is released under GNU Affero General Public License v3.0 license. Copyright Markos Gogoulos and Yiannis Stergiou
+
+
