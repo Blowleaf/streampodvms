@@ -18,3 +18,6 @@ static/drf-yasg
 cms/local_settings.py
 deploy/docker/local_settings.py
 ocanolog.md
+.DS_Store
+static/.DS_Store
+static/images/.DS_Store
