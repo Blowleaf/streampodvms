@@ -17,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    image: mediacms/mediacms-dev:latest
+    image: ocano/streampod-vms-dev:latest
     environment:
       ADMIN_USER: 'admin'
       ADMIN_PASSWORD: 'admin'
