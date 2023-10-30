@@ -1,13 +1,17 @@
 # Developers documentation
 
 ## Table of contents
-- [1. Welcome](#1-welcome)
-- [2. System architecture](#2-system-architecture)
-- [3. API documentation](#3-api-documentation)
-- [4. How to contribute](#4-how-to-contribute)
-- [5. Working with Docker tips](#5-working-with-docker-tips)
-- [6. Working with the automated tests](#6-working-with-the-automated-tests)
-- [7. How video is transcoded](#7-how-video-is-transcoded)
+- [Developers documentation](#developers-documentation)
+  - [Table of contents](#table-of-contents)
+  - [1. Welcome](#1-welcome)
+  - [2. System architecture](#2-system-architecture)
+  - [3. API documentation](#3-api-documentation)
+  - [4. How to contribute](#4-how-to-contribute)
+  - [5. Working with Docker tips](#5-working-with-docker-tips)
+    - [Frontend application changes](#frontend-application-changes)
+    - [Backend application changes](#backend-application-changes)
+  - [How video is transcoded](#how-video-is-transcoded)
+  - [6. Working with the automated tests](#6-working-with-the-automated-tests)
 
 ## 1. Welcome
 This page is created for MediaCMS developers and contains related information.
@@ -47,7 +51,7 @@ Checkout the [Code of conduct page](../CODE_OF_CONDUCT.md) if you want to contri
 
 ## 5. Working with Docker tips
 
-To perform the Docker installation, follow instructions to install Docker + Docker compose (docs/Docker_Compose.md) and then build/start docker-compose-dev.yaml . This will run the frontend application on port 8088 on top of all other containers (including the Django web application on port 80)
+To perform the Docker installation, follow instructions to install Docker + Docker compose (docs/Docker_Compose.md) and then build/start docker-compose-dev.yaml . This will run the frontend application on port 8080 on top of all other containers (including the Django web application on port 80)
 
 ```
 docker-compose -f docker-compose-dev.yaml build
@@ -74,16 +78,16 @@ And then in order for the changes to be visible on the application while served 
 cp -r frontend/dist/static/* static/
 ```
 
-POST calls: cannot be performed through the dev server, you have to make through the normal application (port 80) and then see changes on the dev application on port 8088. 
+POST calls: cannot be performed through the dev server, you have to make through the normal application (port 80) and then see changes on the dev application on port 8080. 
 Make sure the urls are set on `frontend/.env` if different than localhost
 
 
-Media page: need to upload content through the main application (nginx/port 80), and then use an id for page media.html, for example `http://localhost:8088/media.html?m=nc9rotyWP`
+Media page: need to upload content through the main application (nginx/port 80), and then use an id for page media.html, for example `http://localhost:8080/media.html?m=nc9rotyWP`
 
 There are some issues with CORS too to resolve, in order for some pages to function, eg the manage comments page
 
 ```
-http://localhost:8088/manage-media.html manage_media
+http://localhost:8080/manage-media.html manage_media
 ```
 
 ### Backend application changes
