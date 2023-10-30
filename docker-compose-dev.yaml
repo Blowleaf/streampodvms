@@ -17,13 +17,14 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    image: ocano/streampod-vms-dev:latest
+    image: ocano/streampodvms-test:latest
     environment:
       ADMIN_USER: 'admin'
       ADMIN_PASSWORD: 'admin'
       ADMIN_EMAIL: 'admin@localhost'
+      POSTGRES_DB: 'db'
     ports:
-      - "80:80"
+      - "8080:8080"
     volumes:
       - ./:/home/mediacms.io/mediacms/
     depends_on:
