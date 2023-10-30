@@ -51,9 +51,9 @@ Checkout the [Code of conduct page](../CODE_OF_CONDUCT.md) if you want to contri
 
 ## 5. Working with Docker tips
 
-To perform the Docker installation, follow instructions to install Docker + Docker compose (docs/Docker_Compose.md) and then build/start docker-compose-dev.yaml . This will run the frontend application on port 8080 on top of all other containers (including the Django web application on port 80)
 
-```
+```To perform the Docker installation, follow instructions to install Docker + Docker compose (docs/Docker_Compose.md) and then build/start docker-compose-dev.yaml . This will run the frontend application on port 8080 on top of all other containers (including the Django web application on port 80)
+
 docker-compose -f docker-compose-dev.yaml build
 docker-compose -f docker-compose-dev.yaml up
 ```

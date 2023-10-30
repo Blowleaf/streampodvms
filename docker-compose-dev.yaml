@@ -1,6 +1,34 @@
 version: "3"
 
+volumes:
+  volume_name: 
+    name: streampod_volume
+
 services:
+  db:
+    image: postgres:15.2-alpine
+    volumes:
+      - ${PWD}/streampod_volume:/var/lib/postgresql/data/
+    restart: always
+    environment:
+      POSTGRES_USER: mediacms
+      PGUSER: mediacms
+      POSTGRES_PASSWORD: mediacms
+      POSTGRES_DB: mediacms
+      TZ: Asia/Tokyo
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "--host=db", "--dbname=$POSTGRES_DB", "--username=$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  redis:
+    image: "redis:alpine"
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   frontend:
     image: node:14
     volumes:
@@ -22,7 +50,8 @@ services:
       ADMIN_USER: 'admin'
       ADMIN_PASSWORD: 'admin'
       ADMIN_EMAIL: 'admin@localhost'
-      POSTGRES_DB: 'db'
+      POSTGRES_DB: 'mediacms'
+      POSTGRES_USER: 'mediacms'
     ports:
       - "8080:8080"
     volumes:
@@ -32,26 +61,3 @@ services:
         condition: service_healthy
       db:
         condition: service_healthy
-  db:
-    image: postgres:15.2-alpine
-    volumes:
-      - ../postgres_data:/var/lib/postgresql/data/
-    restart: always
-    environment:
-      POSTGRES_USER: mediacms
-      POSTGRES_PASSWORD: mediacms
-      POSTGRES_DB: mediacms
-      TZ: Asia/Tokyo
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "--host=db", "--dbname=$POSTGRES_DB", "--username=$POSTGRES_USER"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-  redis:
-    image: "redis:alpine"
-    restart: always
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
