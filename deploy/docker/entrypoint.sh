@@ -11,7 +11,7 @@ mkdir -p /home/mediacms.io/mediacms/{logs,media_files/hls}
 touch /home/mediacms.io/mediacms/logs/debug.log
 
 mkdir -p /var/run/mediacms
-chown www-data:www-data /var/run/mediacms
+chown www-data:www-data /var/run/mediacms # 20231030 changed for test - ocano
 
 TARGET_GID=$(stat -c "%g" /home/mediacms.io/mediacms/)
 
@@ -27,9 +27,10 @@ else
     usermod -a -G $GROUP www-data
 fi
 
+# 20231030 changed for test - ocano
 # We should do this only for folders that have a different owner, since it is an expensive operation
-find /home/mediacms.io/ ! \( -user www-data -group $TARGET_GID \) -exec chown www-data:$TARGET_GID {} +
+## find /home/mediacms.io/ ! \( -user www-data -group $TARGET_GID \) -exec chown www-data:$TARGET_GID {} + 
 
-chmod +x /home/mediacms.io/mediacms/deploy/docker/start.sh /home/mediacms.io/mediacms/deploy/docker/prestart.sh
-
+## chmod +x /home/mediacms.io/mediacms/deploy/docker/start.sh /home/mediacms.io/mediacms/deploy/docker/prestart.sh
+# 20231030 changed for test - ocano
 exec "$@"
