@@ -50,9 +50,9 @@ If you've used the above way to install MediaCMS, update with the following:
 cd /home/mediacms.io/mediacms # enter mediacms directory
 source  /home/mediacms.io/bin/activate # use virtualenv
 git config --global --add safe.directory /home/mediacms.io/mediacms # Due to updated named directory
-git pull # update code
+sudo git pull # update code
 pip install -r requirements.txt -U # run pip install to update
-python manage.py migrate # run Django migrations
+python manage.py migrate # run Django migrations(Find managage.py 20231101)
 sudo systemctl restart mediacms celery_long celery_short # restart services
 ```
 
