@@ -10,10 +10,10 @@ from rich.table import Table
 
 console = Console()
 
-print("Welcome to the CLI Tool of [bold blue]MediaCMS![/bold blue]", ":thumbs_up:")
+print("Welcome to the CLI Tool of [bold blue]StreamPod![/bold blue]", ":thumbs_up:")
 
 
-BASE_URL = 'https://demo.mediacms.io/api/v1'
+BASE_URL = 'https://streampod.io/api/v1'
 AUTH_KEY = ''
 USERNAME = ''
 EMAIL = ''
