@@ -6,10 +6,10 @@ DEBUG = False
 
 # PORTAL NAME, this is the portal title and
 # is also shown on several places as emails
-PORTAL_NAME = "MediaCMS"
+PORTAL_NAME = "StreamPod"
 PORTAL_DESCRIPTION = ""
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "Europe/London"
+TIME_ZONE = "Asia/Tokyo"
 
 # who can add media
 # valid options include 'all', 'email_verified', 'advancedUser'
@@ -61,14 +61,14 @@ VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE = False
 PRE_UPLOAD_MEDIA_MESSAGE = ""
 
 # email settings
-DEFAULT_FROM_EMAIL = "info@mediacms.io"
+DEFAULT_FROM_EMAIL = "info@streampod.io"
 EMAIL_HOST_PASSWORD = "xyz"
-EMAIL_HOST_USER = "info@mediacms.io"
+EMAIL_HOST_USER = "info@streampod.io"
 EMAIL_USE_TLS = True
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-EMAIL_HOST = "mediacms.io"
+EMAIL_HOST = "streampod.io"
 EMAIL_PORT = 587
-ADMIN_EMAIL_LIST = ["info@mediacms.io"]
+ADMIN_EMAIL_LIST = ["info@streampod.io"]
 
 
 MEDIA_IS_REVIEWED = True  # whether an admin needs to review a media file.

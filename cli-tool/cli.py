@@ -35,7 +35,7 @@ set_envs()
 
 @click.group()
 def apis():
-    """A CLI wrapper for the MediaCMS API endpoints."""
+    """A CLI wrapper for the StreamPod VMS API endpoints."""
 
 
 @apis.command()
