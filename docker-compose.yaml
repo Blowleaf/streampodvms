@@ -3,6 +3,8 @@ version: "3"
 services:
   migrations:
     image: ocano/streampod-vms:latest
+    ports:
+    - 8000
     volumes:
       - ./:/home/mediacms.io/mediacms/
     environment:
@@ -14,6 +16,8 @@ services:
       ADMIN_USER: 'admin'
       ADMIN_EMAIL: 'admin@localhost'
       #ADMIN_PASSWORD: 'uncomment_and_set_password_here'
+      POSTGRES_USER: mediacms
+      POSTGRES_PASSWORD: mediacms
     command: "./deploy/docker/prestart.sh"
     restart: on-failure
     depends_on:
@@ -36,8 +40,10 @@ services:
       ENABLE_MIGRATIONS: 'no'
     depends_on:
       - migrations
-  celery_beat:
+  celery-beat:
     image: ocano/streampod-vms:latest
+    ports:
+    - 6379
     volumes:
       - ./:/home/mediacms.io/mediacms/
     environment:
@@ -48,8 +54,10 @@ services:
       ENABLE_MIGRATIONS: 'no'
     depends_on:
       - redis
-  celery_worker:
+  celery-worker:
     image: ocano/streampod-vms:latest
+    ports:
+    - 6379
     deploy:
       replicas: 1
     volumes:
@@ -63,6 +71,8 @@ services:
       - migrations
   db:
     image: postgres:15.2-alpine
+    ports: 
+    - 5432
     volumes:
       - ../postgres_data:/var/lib/postgresql/data/
     restart: always
@@ -78,6 +88,8 @@ services:
       retries: 5
   redis:
     image: "redis:alpine"
+    ports: 
+    - 6379
     restart: always
     healthcheck:
       test: ["CMD", "redis-cli","ping"]
