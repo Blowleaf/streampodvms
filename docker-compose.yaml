@@ -16,8 +16,6 @@ services:
       ADMIN_USER: 'admin'
       ADMIN_EMAIL: 'admin@localhost'
       #ADMIN_PASSWORD: 'uncomment_and_set_password_here'
-      POSTGRES_USER: mediacms
-      POSTGRES_PASSWORD: mediacms
     command: "./deploy/docker/prestart.sh"
     restart: on-failure
     depends_on:
