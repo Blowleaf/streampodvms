@@ -1,5 +1,7 @@
 FROM python:3.11.4-bookworm AS compile-image
 
+VOLUME /home/mediacms.io/mediacms
+
 SHELL ["/bin/bash", "-c"]
 
 # Set up virtualenv
