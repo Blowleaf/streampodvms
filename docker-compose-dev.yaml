@@ -41,7 +41,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-dev
-    image: ocano/streampod-vms-dev:latest
+    image: ocano/streampod-vms-dev:v1.0
     environment:
       ADMIN_USER: 'admin'
       ADMIN_PASSWORD: 'admin'
