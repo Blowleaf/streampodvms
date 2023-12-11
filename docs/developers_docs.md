@@ -17,10 +17,11 @@
 This page is created for MediaCMS developers and contains related information.
 
 ## 2. System architecture
-to be written
+
+![Alt text for the image](/docs/images/architecture.png)
 
 ## 3. API documentation
-API is documented using Swagger - checkout ot http://your_installation/swagger - example https://demo.mediacms.io/swagger/
+API is documented using Swagger - checkout ot http://your_installation/swagger
 This page allows you to login to perform authenticated actions - it will also use your session if logged in. 
 
 
