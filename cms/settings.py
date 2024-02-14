@@ -7,19 +7,19 @@ DEBUG = False
 # PORTAL NAME, this is the portal title and
 # is also shown on several places as emails
 PORTAL_NAME = "StreamPod"
-PORTAL_DESCRIPTION = ""
+PORTAL_DESCRIPTION = "Video Management System"
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Tokyo"
 
 # who can add media
 # valid options include 'all', 'email_verified', 'advancedUser'
-CAN_ADD_MEDIA = "all"
+CAN_ADD_MEDIA = "advancedUser"
 
 # valid choices here are 'public', 'private', 'unlisted
 PORTAL_WORKFLOW = "public"
 
 # valid values: 'light', 'dark'.
-DEFAULT_THEME = "light"
+DEFAULT_THEME = "dark"
 
 
 # These are passed on every request
@@ -44,7 +44,7 @@ ALLOW_RATINGS = False
 ALLOW_RATINGS_CONFIRMED_EMAIL_ONLY = True
 
 # ip of the server should be part of this
-ALLOWED_HOSTS = ["*", "mediacms.io", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["*", "mediacms.io", "127.0.0.1", "localhost", "streampod.io"]
 
 FRONTEND_HOST = "http://localhost"
 # this variable - along with SSL_FRONTEND_HOST is used on several places
@@ -87,8 +87,8 @@ MAX_MEDIA_PER_PLAYLIST = 70
 UPLOAD_MAX_SIZE = 800 * 1024 * 1000 * 5
 
 MAX_CHARS_FOR_COMMENT = 10000  # so that it doesn't end up huge
-TIMESTAMP_IN_TIMEBAR = False  # shows timestamped comments in the timebar for videos
-ALLOW_MENTION_IN_COMMENTS = False  # allowing to mention other users with @ in the comments
+TIMESTAMP_IN_TIMEBAR = True  # shows timestamped comments in the timebar for videos
+ALLOW_MENTION_IN_COMMENTS = True  # allowing to mention other users with @ in the comments
 
 # valid options: content, author
 RELATED_MEDIA_STRATEGY = "content"
