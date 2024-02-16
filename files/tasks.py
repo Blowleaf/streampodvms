@@ -224,7 +224,7 @@ def encode_media(
 
     if task_id:
         encoding.task_id = task_id
-    encoding.worker = "localhost"
+    encoding.worker = "localhost" ## 20240216 Attempt to Distribute this worker. 
     encoding.retries = self.request.retries
     encoding.save()
 
@@ -403,7 +403,7 @@ def produce_sprite_from_video(friendly_token):
             pass
     return True
 
-
+## 20240216 is this task even working?
 @task(name="create_hls", queue="long_tasks")
 def create_hls(friendly_token):
     """Creates HLS file for media, uses Bento4 mp4hls command"""
