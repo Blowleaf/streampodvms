@@ -29,6 +29,9 @@ docker_test_reset:
 docker_up:
 	docker-compose up -d
 
+docker_up_dev:
+	docker-compose -f docker-compose-dev.yaml up -d
+
 docker_update_dependencies:
 	docker-compose down
 	docker-compose up -d --build
@@ -36,6 +39,10 @@ docker_update_dependencies:
 docker_down:
 	docker-compose down
 	rm -dr ../postgres_data
+
+docker_down_dev:
+	docker-compose down
+	rm -dr ./streampod_volume
 
 docker_logs:
 	docker-compose logs -f $(ARG)
