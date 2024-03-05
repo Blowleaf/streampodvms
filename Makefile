@@ -6,6 +6,7 @@ clean:
 	@find . -name "__pycache__" -delete
 	rm -r ./celerybeat-schedule
 	rm -dr ./streampod_volume
+	rm -dr ./logs
 	rm -dr ./media_files
 	rm -dr ../postgres_data
 
