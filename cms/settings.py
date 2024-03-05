@@ -160,7 +160,7 @@ HLS_DIR = os.path.join(MEDIA_ROOT, "hls/")
 
 FFMPEG_COMMAND = "ffmpeg"  # this is the path
 FFPROBE_COMMAND = "ffprobe"  # this is the path
-MP4HLS = "mp4hls"
+MP4HLS = "mp42hls"
 
 MASK_IPS_FOR_ACTIONS = True
 # how many seconds a process in running state without reporting progress is
@@ -173,7 +173,7 @@ FRIENDLY_TOKEN_LEN = 9
 # for videos, after that duration get split into chunks
 # and encoded independently
 CHUNKIZE_VIDEO_DURATION = 60 * 5
-# aparently this has to be smaller than VIDEO_CHUNKIZE_DURATION
+# aparently this has to be smaller than CHUNKIZE_VIDEO_DURATION
 VIDEO_CHUNKS_DURATION = 60 * 4
 
 # always get these two, even if upscaling
