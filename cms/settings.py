@@ -160,7 +160,6 @@ HLS_DIR = os.path.join(MEDIA_ROOT, "hls/")
 
 FFMPEG_COMMAND = "ffmpeg"  # this is the path
 FFPROBE_COMMAND = "ffprobe"  # this is the path
-MP4HLS = "mp42hls"
 
 MASK_IPS_FOR_ACTIONS = True
 # how many seconds a process in running state without reporting progress is
@@ -219,8 +218,9 @@ POST_UPLOAD_AUTHOR_MESSAGE_UNLISTED_NO_COMMENTARY = ""
 
 CANNOT_ADD_MEDIA_MESSAGE = ""
 
-# mp4hls command, part of Bendo4
-MP4HLS_COMMAND = "mp42hls"
+# mp4hls command, part of Bento4
+MP4HLS_COMMAND = "/usr/bin/mp42hls"
+print("MP4HLS Command", MP4HLS_COMMAND) ## debugging
 
 # highly experimental, related with remote workers
 ADMIN_TOKEN = "c2b8e1838b6128asd333ddc5e24"
