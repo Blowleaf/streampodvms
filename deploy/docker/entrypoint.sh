@@ -3,17 +3,17 @@ set -e
 
 # forward request and error logs to docker log collector
 ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log && \
-ln -sf /dev/stdout /var/log/nginx/mediacms.io.access.log && ln -sf /dev/stderr /var/log/nginx/mediacms.io.error.log
+ln -sf /dev/stdout /var/log/nginx/streampod.io.access.log && ln -sf /dev/stderr /var/log/nginx/streampod.io.error.log
 
-cp /home/mediacms.io/mediacms/deploy/docker/local_settings.py /home/mediacms.io/mediacms/cms/local_settings.py
+cp /home/streampod.io/streampod/deploy/docker/local_settings.py /home/streampod.io/streampod/cms/local_settings.py
 
-mkdir -p /home/mediacms.io/mediacms/{logs,media_files/hls}
-touch /home/mediacms.io/mediacms/logs/debug.log
+mkdir -p /home/streampod.io/streampod/{logs,media_files/hls}
+touch /home/streampod.io/streampod/logs/debug.log
 
-mkdir -p /var/run/mediacms
-chown www-data:www-data /var/run/mediacms # 20231030 changed for test - ocano
+mkdir -p /var/run/streampod
+chown www-data:www-data /var/run/streampod # 20231030 changed for test - ocano
 
-TARGET_GID=$(stat -c "%g" /home/mediacms.io/mediacms/)
+TARGET_GID=$(stat -c "%g" /home/streampod.io/streampod/)
 
 EXISTS=$(cat /etc/group | grep $TARGET_GID | wc -l)
 

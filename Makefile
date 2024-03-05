@@ -4,6 +4,10 @@ ARG := $(word 2, $(MAKECMDGOALS) )
 clean:
 	@find . -name "*.pyc" -exec rm -rf {} \;
 	@find . -name "__pycache__" -delete
+	rm -r ./celerybeat-schedule
+	rm -dr ./streampod_volume
+	rm -dr ./media_files
+	rm -dr ../postgres_data
 
 test:
 	poetry run backend/manage.py test backend/ $(ARG) --parallel --keepdb

@@ -7,11 +7,11 @@ REDIS_LOCATION = "redis://redis:6379/1"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "mediacms",
+        "NAME": "streampod",
         "HOST": POSTGRES_HOST,
         "PORT": "5432",
-        "USER": "mediacms",
-        "PASSWORD": "mediacms",
+        "USER": "streampod",
+        "PASSWORD": "streampod",
     }
 }
 
@@ -29,6 +29,6 @@ CACHES = {
 BROKER_URL = REDIS_LOCATION
 CELERY_RESULT_BACKEND = BROKER_URL
 
-MP4HLS_COMMAND = "/home/mediacms.io/bento4/bin/mp4hls"
+MP4HLS_COMMAND = "mp42hls"
 
 DEBUG = False

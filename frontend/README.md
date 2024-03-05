@@ -1,4 +1,4 @@
-# MediaCMS Web Client (demo)
+# StreamPod Web Client (demo)
 
 ### **Requirements**
 
@@ -16,7 +16,7 @@
 
     npm run start
 
-Open in browser: [http://localhost:8088](http://localhost:8088)
+Open in browser: [http://localhost:8080](http://localhost:8080)
 
 ---
 

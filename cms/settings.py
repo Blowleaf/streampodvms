@@ -220,7 +220,7 @@ POST_UPLOAD_AUTHOR_MESSAGE_UNLISTED_NO_COMMENTARY = ""
 CANNOT_ADD_MEDIA_MESSAGE = ""
 
 # mp4hls command, part of Bendo4
-MP4HLS_COMMAND = "/home/mediacms.io/mediacms/Bento4-SDK-1-6-0-637.x86_64-unknown-linux/bin/mp4hls"
+MP4HLS_COMMAND = "mp42hls"
 
 # highly experimental, related with remote workers
 ADMIN_TOKEN = "c2b8e1838b6128asd333ddc5e24"
@@ -387,11 +387,11 @@ LOGGING = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "mediacms",
+        "NAME": "streampod",
         "HOST": "127.0.0.1",
         "PORT": "5432",
-        "USER": "mediacms",
-        "PASSWORD": "mediacms",
+        "USER": "streampod",
+        "PASSWORD": "streampod",
     }
 }
 
