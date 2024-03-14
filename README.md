@@ -1,7 +1,5 @@
 # StreamPod VMS
-
-<img src="StreamPod_logo_transparent.png">
-
+ 
 [![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/mediacms-io/mediacms/main/LICENSE.txt)
 
 StreamPod VMS is a modern, fully featured open source video and media CMS. It is developed to meet the needs of modern web platforms for viewing and sharing media. It can be used to build a small to medium video and media portal within minutes. 
@@ -68,9 +66,5 @@ Visit [Configuration](docs/admins_docs.md#5-configuration) page.
 ## Credits
 
 Foked from Original GitHub repo by Markos Gogoulos and Yiannis Stergiou; https://github.com/mediacms-io/mediacms
-
-## License
-
-MediaCMS is released under GNU Affero General Public License v3.0 license. Copyright Markos Gogoulos and Yiannis Stergiou
 
 
