@@ -1,22 +1,22 @@
 FROM python:3.11.4-bookworm AS compile-image
 
-VOLUME /home/mediacms.io/mediacms
+VOLUME /home/streampod.io/streampod
 
 SHELL ["/bin/bash", "-c"]
 
 # Set up virtualenv
-ENV VIRTUAL_ENV=/home/mediacms.io
+ENV VIRTUAL_ENV=/home/streampod.io
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ENV PIP_NO_CACHE_DIR=1
 
-RUN mkdir -p /home/mediacms.io/mediacms/{logs} && cd /home/mediacms.io && python3 -m venv $VIRTUAL_ENV
+RUN mkdir -p /home/streampod.io/streampod/{logs} && cd /home/streampod.io && python3 -m venv $VIRTUAL_ENV
 
 # Install dependencies:
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY . /home/mediacms.io/mediacms
-WORKDIR /home/mediacms.io/mediacms
+COPY . /home/streampod.io/streampod
+WORKDIR /home/streampod.io/streampod
 
 RUN wget -q http://zebulon.bok.net/Bento4/binaries/Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip && \
     unzip Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip -d ../bento4 && \
@@ -43,10 +43,10 @@ ENV ENABLE_CELERY_LONG='yes'
 ENV ENABLE_MIGRATIONS='yes'
 
 # Set up virtualenv
-ENV VIRTUAL_ENV=/home/mediacms.io
+ENV VIRTUAL_ENV=/home/streampod.io
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-COPY --chown=www-data:www-data --from=compile-image /home/mediacms.io /home/mediacms.io
+COPY --chown=www-data:www-data --from=compile-image /home/streampod.io /home/streampod.io
 
 RUN apt-get update -y && apt-get -y upgrade && apt-get install --no-install-recommends \
     supervisor nginx imagemagick procps wget xz-utils -y && \
@@ -60,9 +60,9 @@ RUN wget -q https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-stati
     cp -v ffmpeg-tmp/ffmpeg ffmpeg-tmp/ffprobe ffmpeg-tmp/qt-faststart /usr/local/bin && \
     rm -rf ffmpeg-tmp ffmpeg-release-amd64-static.tar.xz
 
-WORKDIR /home/mediacms.io/mediacms
+WORKDIR /home/streampod.io/streampod
 
-EXPOSE 9000 80
+EXPOSE 8000 80
 
 RUN chmod +x ./deploy/docker/entrypoint.sh
 
