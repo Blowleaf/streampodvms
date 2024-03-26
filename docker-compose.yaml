@@ -2,7 +2,7 @@ version: "3"
 
 volumes:
   volume_name: 
-    name: streampod_volume
+    name: vms-volume-mount
 
 services:
   migrations:
@@ -76,7 +76,7 @@ services:
     ports: 
     - 5432
     volumes:
-      - ${PWD}/streampod_volume:/var/lib/postgresql/data/
+      - ${PWD}/vms-volume-mount:/var/lib/postgresql/data/
     restart: always
     environment:
       POSTGRES_USER: streampod

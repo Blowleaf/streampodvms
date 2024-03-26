@@ -18,6 +18,7 @@ RUN pip install -r requirements.txt
 COPY . /home/streampod.io/streampod
 WORKDIR /home/streampod.io/streampod
 
+# Install Bento4
 RUN wget -q http://zebulon.bok.net/Bento4/binaries/Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip && \
     unzip Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip -d ../bento4 && \
     mv ../bento4/Bento4-SDK-1-6-0-637.x86_64-unknown-linux/* ../bento4/ && \
@@ -48,21 +49,24 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 COPY --chown=www-data:www-data --from=compile-image /home/streampod.io /home/streampod.io
 
+# Install Dependency packages
 RUN apt-get update -y && apt-get -y upgrade && apt-get install --no-install-recommends \
     supervisor nginx imagemagick procps wget xz-utils -y && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get purge --auto-remove && \
     apt-get clean
 
-RUN wget -q https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz && \
+# Install FFMPEG
+RUN wget -q https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-static.tar.xz && \
     mkdir -p ffmpeg-tmp && \
-    tar -xf ffmpeg-release-amd64-static.tar.xz --strip-components 1 -C ffmpeg-tmp && \
+    tar -xf ffmpeg-release-arm64-static.tar.xz --strip-components 1 -C ffmpeg-tmp && \
     cp -v ffmpeg-tmp/ffmpeg ffmpeg-tmp/ffprobe ffmpeg-tmp/qt-faststart /usr/local/bin && \
-    rm -rf ffmpeg-tmp ffmpeg-release-amd64-static.tar.xz
+    rm -rf ffmpeg-tmp ffmpeg-release-arm64-static.tar.xz
 
 WORKDIR /home/streampod.io/streampod
 
-EXPOSE 8000 80
+# See Ln 15 of deploy/docker/uwsgi.ini
+EXPOSE 9000 80
 
 RUN chmod +x ./deploy/docker/entrypoint.sh
 
