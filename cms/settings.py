@@ -9,7 +9,7 @@ DEBUG = False
 PORTAL_NAME = "StreamPod"
 PORTAL_DESCRIPTION = "Video Management System"
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "Asia/Tokyo"
+TIME_ZONE = "UTC"
 
 # who can add media
 # valid options include 'all', 'email_verified', 'advancedUser'
@@ -44,7 +44,7 @@ ALLOW_RATINGS = False
 ALLOW_RATINGS_CONFIRMED_EMAIL_ONLY = True
 
 # ip of the server should be part of this
-ALLOWED_HOSTS = ["*", "mediacms.io", "127.0.0.1", "localhost", "streampod.io"]
+ALLOWED_HOSTS = ["*", "mediacms.io", "127.0.0.1", "localhost", "streampod.io", "vms.streampod"]
 
 FRONTEND_HOST = "http://localhost"
 # this variable - along with SSL_FRONTEND_HOST is used on several places
@@ -220,6 +220,7 @@ CANNOT_ADD_MEDIA_MESSAGE = ""
 # mp4hls command, part of Bento4
 MP4HLS_COMMAND = "/home/streampod.io/bento4/bin/mp4hls"
 MP4DASH_COMMAND = "/home/streampod.io/bento4/bin/mp4dash"
+MP4INFO_COMMAND = "/home/streampod.io/bento4/bin/mp4info"
 
 # highly experimental, related with remote workers
 ADMIN_TOKEN = "c2b8e1838b6128asd333ddc5e24"
@@ -448,7 +449,7 @@ GLOBAL_LOGIN_REQUIRED = False
 
 # TODO: separate settings on production/development more properly, for now
 # this should be ok
-CELERY_TASK_ALWAYS_EAGER = False
+CELERY_TASK_ALWAYS_EAGER = True ## Active for K8s
 if os.environ.get("TESTING"):
     CELERY_TASK_ALWAYS_EAGER = True
 

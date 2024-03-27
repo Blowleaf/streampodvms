@@ -27,6 +27,7 @@ export function HeaderThemeSwitcher() {
 
   return (
     <div className="theme-switch" tabIndex={0} onKeyPress={onKeyPress} onClick={onClick}>
+      <label id="themeSwitcherLabel">Toggle Dark Mode</label>
       <span>Dark Theme</span>
       <span>
         <label className="checkbox-label right-selectbox">
@@ -38,6 +39,7 @@ export function HeaderThemeSwitcher() {
                 tabIndex={-1}
                 checked={'dark' === currentThemeMode}
                 onChange={onChange}
+                aria-labelledby="themeSwitcherLabel"
               />
             </span>
           </span>

@@ -12,8 +12,8 @@ const EmptyMedia: React.FC = ({}) => {
     <LinksConsumer>
       {(links) => (
         <div className="empty-media">
-          <div className="welcome-title">Welcome to StreamPod VMS!</div>
-          <div className="start-uploading">Start uploading media and sharing your work!</div>
+          <div className="welcome-title">Welcome to StreamPod</div>
+          <div className="start-uploading">Start uploading media!</div>
           <a href={links.user.addMedia} title="Upload media" className="button-link">
             <i className="material-icons" data-icon="video_call"></i>UPLOAD MEDIA
           </a>
