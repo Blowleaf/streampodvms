@@ -5,7 +5,7 @@ clean:
 	@find . -name "*.pyc" -exec rm -rf {} \;
 	@find . -name "__pycache__" -delete
 	rm -dr ./media_files
-	rm -dr ./streampod_volume
+	rm -dr ./vms-volume-mount
 	rm -dr ./logs
 	rm -r ./celerybeat-schedule
 	rm -dr ../postgres_data

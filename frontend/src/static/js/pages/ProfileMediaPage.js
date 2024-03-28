@@ -19,7 +19,7 @@ function EmptyChannelMedia(props) {
         <div className="empty-media empty-channel-media">
           <div className="welcome-title">Welcome {props.name}</div>
           <div className="start-uploading">
-            Start uploading media and sharing your work. Media that you upload will show up here.
+            Start uploading, Media that you upload will show up here.
           </div>
           <a href={links.user.addMedia} title="Upload media" className="button-link">
             <i className="material-icons" data-icon="video_call"></i>UPLOAD MEDIA

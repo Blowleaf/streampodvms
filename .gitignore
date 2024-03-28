@@ -5,6 +5,7 @@ media_files/original/
 media_files/hls/
 media_files/chunks/
 media_files/uploads/
+vms-volume-mount/
 postgres_data/
 streampod_volume/
 media_files/

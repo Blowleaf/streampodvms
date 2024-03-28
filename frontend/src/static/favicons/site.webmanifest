@@ -1,6 +1,8 @@
 {
     "name": "StreamPod",
     "short_name": "StreamPod",
+    "description": "StreamPod is a modern open core video management system",
+    "start_url": "/",
     "icons": [
         {
             "src": "android-chrome-192x192.png",

@@ -20,6 +20,14 @@ RUN pip install -r requirements-dev.txt
 COPY . /home/streampod.io/streampod
 WORKDIR /home/streampod.io/streampod
 
+# Install Bento4
+RUN wget -q https://www.bok.net/Bento4/binaries/Bento4-SDK-1-6-0-641.x86_64-unknown-linux.zip && \
+    unzip Bento4-SDK-1-6-0-641.x86_64-unknown-linux.zip -d ../bento4 && \
+    mv ../bento4/Bento4-SDK-1-6-0-641.x86_64-unknown-linux/* ../bento4/ && \
+    rm -rf ../bento4/Bento4-SDK-1-6-0-641.x86_64-unknown-linux && \
+    rm -rf ../bento4/docs && \
+    rm Bento4-SDK-1-6-0-641.x86_64-unknown-linux.zip
+
 ############ RUNTIME IMAGE ############
 FROM python:3.11.4-bookworm as runtime-image
 
@@ -49,15 +57,12 @@ RUN apt-get update -y && apt-get -y upgrade && apt-get install --no-install-reco
     apt-get purge --auto-remove && \
     apt-get clean
 
+# Install FFMPEG
 RUN wget -q https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-static.tar.xz && \
     mkdir -p ffmpeg-tmp && \
     tar -xf ffmpeg-release-arm64-static.tar.xz --strip-components 1 -C ffmpeg-tmp && \
     cp -v ffmpeg-tmp/ffmpeg ffmpeg-tmp/ffprobe ffmpeg-tmp/qt-faststart /usr/local/bin && \
     rm -rf ffmpeg-tmp ffmpeg-release-arm64-static.tar.xz
-
-# Install Bento4
-RUN wget -q https://www.deb-multimedia.org/pool/main/b/bento4-dmo/bento4_1.6.0.640-dmo1_arm64.deb && \
-    apt-get update -y && apt-get install -y ./bento4_1.6.0.640-dmo1_arm64.deb
 
 WORKDIR /home/streampod.io/streampod
 
