@@ -57,9 +57,18 @@ RUN wget -q https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-stati
 
 WORKDIR /home/streampod.io/streampod
 
-# Install Bento4
+# Legacy bento Install
+RUN wget -q http://zebulon.bok.net/Bento4/binaries/Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip && \
+    unzip Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip -d ../bento4 && \
+    mv ../bento4/Bento4-SDK-1-6-0-637.x86_64-unknown-linux/* ../bento4/ && \
+    rm -rf ../bento4/Bento4-SDK-1-6-0-637.x86_64-unknown-linux && \
+    rm -rf ../bento4/docs && \
+    rm Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip
+
+# Install ARM optimized Bento4 to PATH
 RUN wget -q https://www.deb-multimedia.org/pool/main/b/bento4-dmo/bento4_1.6.0.640-dmo1_arm64.deb && \
-    apt-get install -y ./bento4_1.6.0.640-dmo1_arm64.deb
+    apt-get install -y ./bento4_1.6.0.640-dmo1_arm64.deb && \
+    rm ./bento4_1.6.0.640-dmo1_arm64.deb
 
 # See Ln 15 of deploy/docker/uwsgi.ini
 EXPOSE 9000 80
