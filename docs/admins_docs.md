@@ -21,11 +21,11 @@
 
 
 ## 1. Welcome
-This page is created for MediaCMS administrators that are responsible for setting up the software, maintaining it and making modifications.
+This page is created for StreamPod administrators that are responsible for setting up the software, maintaining it and making modifications.
 
 ## 2. Server Installation
 
-The core dependencies are Python3, Django3, Celery, PostgreSQL, Redis, ffmpeg. Any system that can have these dependencies installed, can run MediaCMS. But we strongly suggest installing on Linux Ubuntu (tested on versions 20, 22).
+The core dependencies are Python3, Django3, Celery, PostgreSQL, Redis, ffmpeg. Any system that can have these dependencies installed, can run StreamPod. But we strongly suggest installing on Linux Ubuntu (tested on versions 20, 22).
 
 Installation on an Ubuntu system with git utility installed should be completed in a few minutes with the following steps.
 Make sure you run it as user root, on a clear system, since the automatic script will install and configure the following services: Celery/PostgreSQL/Redis/Nginx and will override any existing settings.
@@ -33,27 +33,27 @@ Make sure you run it as user root, on a clear system, since the automatic script
 Automated script - tested on Ubuntu 20, Ubuntu 22 and Debian Buster
 
 ```bash
-mkdir /home/mediacms.io && cd /home/mediacms.io/
+mkdir /home/streampod.io && cd /home/streampod.io/
 git clone https://github.com/Blowleaf/streampodvms
-mv streampodvms mediacms 
-cd /home/mediacms.io/mediacms/ && bash ./install.sh
+mv streampodvms streampod 
+cd /home/streampod.io/streampod/ && bash ./install.sh
 ```
 
-The script will ask if you have a URL where you want to deploy MediaCMS, otherwise it will use localhost. If you provide a URL, it will use Let's Encrypt service to install a valid ssl certificate.
+The script will ask if you have a URL where you want to deploy StreamPod, otherwise it will use localhost. If you provide a URL, it will use Let's Encrypt service to install a valid ssl certificate.
 
 
 ### Update
 
-If you've used the above way to install MediaCMS, update with the following:
+If you've used the above way to install StreamPod, update with the following:
 
 ```bash
-cd /home/mediacms.io/mediacms # enter mediacms directory
-source  /home/mediacms.io/bin/activate # use virtualenv
-git config --global --add safe.directory /home/mediacms.io/mediacms # Due to updated named directory
+cd /home/streampod.io/streampod # enter streampod directory
+source  /home/streampod.io/bin/activate # use virtualenv
+git config --global --add safe.directory /home/streampod.io/streampod # Due to updated named directory
 sudo git pull # update code
 pip install -r requirements.txt -U # run pip install to update
 python manage.py migrate # run Django migrations(Find managage.py 20231101)
-sudo systemctl restart mediacms celery_long celery_short # restart services
+sudo systemctl restart streampod celery_long celery_short # restart services
 ```
 
 ### Update from version 2 to version 3
@@ -75,7 +75,7 @@ Checkout the configuration section here.
 
 
 ### Maintenance
-Database can be backed up with pg_dump and media_files on /home/mediacms.io/mediacms/media_files include original files and encoded/transcoded versions
+Database can be backed up with pg_dump and media_files on /home/streampod.io/streampod/media_files include original files and encoded/transcoded versions
 
 
 ## 3. Docker Installation
@@ -95,11 +95,11 @@ sudo chmod +x /usr/local/bin/docker-compose
 Then run as root
 
 ```bash
-git clone https://github.com/mediacms-io/mediacms
-cd mediacms
+git clone https://github.com/blowleaf/streampodcms
+cd streampod
 ```
 
-The default option is to serve MediaCMS on all ips available of the server (including localhost).
+The default option is to serve StreamPod on all ips available of the server (including localhost).
 If you want to explore more options (including setup of https with letsencrypt certificate) checkout [Docker deployment](/docs/admins_docs.md#4-docker-deployment-options) section for different docker-compose setups to use.
 
 Run
@@ -108,7 +108,7 @@ Run
 docker-compose up
 ```
 
-This will download all MediaCMS related Docker images and start all containers. Once it finishes, MediaCMS will be installed and available on http://localhost or http://ip
+This will download all StreamPod related Docker images and start all containers. Once it finishes, StreamPod will be installed and available on http://localhost or http://ip
 
 A user admin has been created with random password, you should be able to see it at the end of migrations container, eg
 
@@ -120,11 +120,11 @@ or if you have set the ADMIN_PASSWORD variable on docker-compose file you have u
 
 ### Update
 
-Get latest MediaCMS image and stop/start containers
+Get latest StreamPod image and stop/start containers
 
 ```bash
-cd /path/to/mediacms/installation
-docker pull mediacms/mediacms
+cd /path/to/streampod/installation
+docker pull streampod/streampod
 docker-compose down
 docker-compose up
 ```
@@ -137,7 +137,7 @@ db_1              | 2023-06-27 11:07:42.959 UTC [1] FATAL:  database files are i
 db_1              | 2023-06-27 11:07:42.959 UTC [1] DETAIL:  The data directory was initialized by PostgreSQL version 13, which is not compatible with this version 15.2.
 ```
 
-At this point there are two options: either edit the Docker Compose file and make use of the existing postgres:13 image, or otherwise you have to perform the migration from postgresql 13 to version 15. More notes on https://github.com/mediacms-io/mediacms/pull/749
+At this point there are two options: either edit the Docker Compose file and make use of the existing postgres:13 image, or otherwise you have to perform the migration from postgresql 13 to version 15. More notes on https://github.com/streampod-io/streampod/pull/749
 
 
 
@@ -151,7 +151,7 @@ Database is stored on ../postgres_data/ and media_files on media_files/
 
 ## 4. Docker Deployment options
 
-The mediacms image is built to use supervisord as the main process, which manages one or more services required to run mediacms. We can toggle which services are run in a given container by setting the environment variables below to `yes` or `no`:
+The streampod image is built to use supervisord as the main process, which manages one or more services required to run streampod. We can toggle which services are run in a given container by setting the environment variables below to `yes` or `no`:
 
 * ENABLE_UWSGI
 * ENABLE_NGINX
@@ -170,7 +170,7 @@ To run, update the configs above if necessary, build the image by running `docke
 
 ### Simple Deployment, accessed as http://localhost
 
-The main container runs migrations, mediacms_web, celery_beat, celery_workers (celery_short and celery_long services), exposed on port 80 supported by redis and postgres database.
+The main container runs migrations, streampod_web, celery_beat, celery_workers (celery_short and celery_long services), exposed on port 80 supported by redis and postgres database.
 
  The FRONTEND_HOST in `deploy/docker/local_settings.py` is configured as http://localhost, on the docker host machine.
 
@@ -187,21 +187,21 @@ Now run docker-compose -f docker-compose-letsencrypt.yaml up, when installation 
 
 ### Advanced Deployment, accessed as http://localhost:8000
 
-Here we can run 1 mediacms_web instance, with the FRONTEND_HOST in `deploy/docker/local_settings.py` configured as http://localhost:8000. This is bootstrapped by a single migrations instance and supported by a single celery_beat instance and 1 or more celery_worker instances. Redis and postgres containers are also used for persistence. Clients can access the service on http://localhost:8000, on the docker host machine. This is similar to [this deployment](../docker-compose.yaml), with a `port` defined in FRONTEND_HOST.
+Here we can run 1 streampod_web instance, with the FRONTEND_HOST in `deploy/docker/local_settings.py` configured as http://localhost:8000. This is bootstrapped by a single migrations instance and supported by a single celery_beat instance and 1 or more celery_worker instances. Redis and postgres containers are also used for persistence. Clients can access the service on http://localhost:8000, on the docker host machine. This is similar to [this deployment](../docker-compose.yaml), with a `port` defined in FRONTEND_HOST.
 
-### Advanced Deployment, with reverse proxy, accessed as http://mediacms.io
+### Advanced Deployment, with reverse proxy, accessed as http://streampod.io
 
-Here we can use `jwilder/nginx-proxy` to reverse proxy to 1 or more instances of mediacms_web supported by other services as mentioned in the previous deployment. The FRONTEND_HOST in `deploy/docker/local_settings.py` is configured as http://mediacms.io, nginx-proxy has port 80 exposed. Clients can access the service on http://mediacms.io (Assuming DNS or the hosts file is setup correctly to point to the IP of the nginx-proxy instance). This is similar to [this deployment](../docker-compose-http-proxy.yaml).
+Here we can use `jwilder/nginx-proxy` to reverse proxy to 1 or more instances of streampod_web supported by other services as mentioned in the previous deployment. The FRONTEND_HOST in `deploy/docker/local_settings.py` is configured as http://streampod.io, nginx-proxy has port 80 exposed. Clients can access the service on http://streampod.io (Assuming DNS or the hosts file is setup correctly to point to the IP of the nginx-proxy instance). This is similar to [this deployment](../docker-compose-http-proxy.yaml).
 
 ### Advanced Deployment, with reverse proxy, accessed as https://localhost
 
-The reverse proxy (`jwilder/nginx-proxy`) can be configured to provide SSL termination using self-signed certificates, letsencrypt or CA signed certificates (see: https://hub.docker.com/r/jwilder/nginx-proxy or [LetsEncrypt Example](https://www.singularaspect.com/use-nginx-proxy-and-letsencrypt-companion-to-host-multiple-websites/) ). In this case the FRONTEND_HOST should be set to https://mediacms.io. This is similar to [this deployment](../docker-compose-http-proxy.yaml).
+The reverse proxy (`jwilder/nginx-proxy`) can be configured to provide SSL termination using self-signed certificates, letsencrypt or CA signed certificates (see: https://hub.docker.com/r/jwilder/nginx-proxy or [LetsEncrypt Example](https://www.singularaspect.com/use-nginx-proxy-and-letsencrypt-companion-to-host-multiple-websites/) ). In this case the FRONTEND_HOST should be set to https://streampod.io. This is similar to [this deployment](../docker-compose-http-proxy.yaml).
 
 ### A Scaleable Deployment Architecture (Docker, Swarm, Kubernetes)
 
-The architecture below generalises all the deployment scenarios above, and provides a conceptual design for other deployments based on kubernetes and docker swarm. It allows for horizontal scaleability through the use of multiple mediacms_web instances and celery_workers. For large deployments, managed postgres, redis and storage may be adopted.
+The architecture below generalises all the deployment scenarios above, and provides a conceptual design for other deployments based on kubernetes and docker swarm. It allows for horizontal scaleability through the use of multiple streampod_web instances and celery_workers. For large deployments, managed postgres, redis and storage may be adopted.
 
-![MediaCMS](images/architecture.png)
+![StreamPod](images/architecture.png)
 
 
 ## 5. Configuration
@@ -213,15 +213,15 @@ In case of a the single server installation, add to `cms/local_settings.py` .
 
 In case of a docker compose installation, add to `deploy/docker/local_settings.py` . This will automatically overwrite `cms/local_settings.py` .
 
-Any change needs restart of MediaCMS in order to take effect.
+Any change needs restart of StreamPod in order to take effect.
 
-Single server installation: edit `cms/local_settings.py`, make a change and restart MediaCMS
+Single server installation: edit `cms/local_settings.py`, make a change and restart StreamPod
 
 ```bash
-#systemctl restart mediacms
+#systemctl restart streampod
 ```
 
-Docker Compose installation: edit `deploy/docker/local_settings.py`, make a change and restart MediaCMS containers
+Docker Compose installation: edit `deploy/docker/local_settings.py`, make a change and restart StreamPod containers
 
 ```bash
 #docker-compose restart web celery_worker celery_beat
@@ -245,7 +245,7 @@ By default `CAN_ADD_MEDIA = "all"` means that all registered users can add media
 
 - **email_verified**, a user not only has to register an account but also verify the email (by clicking the link sent upon registration). Apparently email configuration need to work, otherise users won't receive emails.
 
-- **advancedUser**, only users that are marked as advanced users can add media. Admins or MediaCMS managers can make users advanced users by editing their profile and selecting advancedUser.
+- **advancedUser**, only users that are marked as advanced users can add media. Admins or StreamPod managers can make users advanced users by editing their profile and selecting advancedUser.
 
 ### 5.4 What is the portal workflow
 
@@ -253,7 +253,7 @@ The `PORTAL_WORKFLOW` variable specifies what happens to newly uploaded media, w
 
 - **public** is the default option and means that a media can appear on listings. If media type is video, it will appear once at least a task that produces an encoded version of the file has finished succesfully. For other type of files, as image/audio they appear instantly
 
-- **private** means that newly uploaded content is private - only users can see it or MediaCMS editors, managers and admins. Those can also set the status to public or unlisted
+- **private** means that newly uploaded content is private - only users can see it or StreamPod editors, managers and admins. Those can also set the status to public or unlisted
 
 - **unlisted** means that items are unlisted. However if a user visits the url of an unlisted media, it will be shown (as opposed to private)
 
@@ -342,14 +342,14 @@ PRE_UPLOAD_MEDIA_MESSAGE = 'custom message'
 Set correct settings per provider
 
 ```
-DEFAULT_FROM_EMAIL = 'info@mediacms.io'
+DEFAULT_FROM_EMAIL = 'info@streampod.io'
 EMAIL_HOST_PASSWORD = 'xyz'
-EMAIL_HOST_USER = 'info@mediacms.io'
+EMAIL_HOST_USER = 'info@streampod.io'
 EMAIL_USE_TLS = True
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-EMAIL_HOST = 'mediacms.io'
+EMAIL_HOST = 'streampod.io'
 EMAIL_PORT = 587
-ADMIN_EMAIL_LIST = ['info@mediacms.io']
+ADMIN_EMAIL_LIST = ['info@streampod.io']
 ```
 
 ### 5.13 Disallow user registrations from specific domains
@@ -361,7 +361,7 @@ RESTRICTED_DOMAINS_FOR_USER_REGISTRATION = [
     'xxx.com', 'emaildomainwhatever.com']
 ```
 
-### 5.14 Require a review by MediaCMS editors/managers/admins
+### 5.14 Require a review by StreamPod editors/managers/admins
 
 set value
 
@@ -370,7 +370,7 @@ MEDIA_IS_REVIEWED = False
 ```
 
 any uploaded media now needs to be reviewed before it can appear to the listings.
-MediaCMS editors/managers/admins can visit the media page and edit it, where they can see the option to mark media as reviewed. By default this is set to True, so all media don't require to be reviewed
+StreamPod editors/managers/admins can visit the media page and edit it, where they can see the option to mark media as reviewed. By default this is set to True, so all media don't require to be reviewed
 
 ### 5.15 Specify maximum number of media for a playlist
 
@@ -481,7 +481,7 @@ to be written
 Who can publish content, how content appears on public listings.Difference between statuses (private, unlisted, public)
 
 ## 9. On user roles
-Differences over MediaCMS manager, MediaCMS editor, logged in user
+Differences over StreamPod manager, StreamPod editor, logged in user
 
 ## 10. Adding languages for Captions and subtitles
 to be written
@@ -617,15 +617,15 @@ checkElement('.nav-menu')
 });
 ```
 
-### 9. Restart the mediacms web server
+### 9. Restart the streampod web server
 On docker:
 ```
-sudo docker stop mediacms_web_1 && sudo docker start mediacms_web_1
+sudo docker stop streampod_web_1 && sudo docker start streampod_web_1
 ```
 
 Otherwise
 ```
-sudo systemctl restart mediacms
+sudo systemctl restart streampod
 ```
 
 
@@ -634,11 +634,11 @@ Instructions contributed by @alberto98fx
 
 1. Create a file:
 
-``` touch $DIR/mediacms/templates/tracking.html ```
+``` touch $DIR/streampod/templates/tracking.html ```
 
 2. Add the Gtag/Analytics script
 
-3. Inside ``` $DIR/mediacms/templates/root.html``` you'll see a file like this one:
+3. Inside ``` $DIR/streampod/templates/root.html``` you'll see a file like this one:
 
 ```
 <head>
@@ -674,26 +674,26 @@ Instructions contributed by @alberto98fx
 ```
 
     web:
-    image: mediacms/mediacms:latest
+    image: ocano/streampod-vms:latest
     restart: unless-stopped
     ports:
       - "80:80"
     deploy:
       replicas: 1
     volumes:
-      - ./templates/root.html:/home/mediacms.io/mediacms/templates/root.html
-      - ./templates/tracking.html://home/mediacms.io/mediacms/templates/tracking.html
+      - ./templates/root.html:/home/streampod.io/streampod/templates/root.html
+      - ./templates/tracking.html://home/streampod.io/streampod/templates/tracking.html
 
  ```
 
 ## 15. Debugging email issues
-On the [Configuration](https://github.com/mediacms-io/mediacms/blob/main/docs/admins_docs.md#5-configuration) section of this guide we've see how to edit the email settings.
-In case we are yet unable to receive email from MediaCMS, the following may help us debug the issue - in most cases it is an issue of setting the correct username, password or TLS option
+On the [Configuration](https://github.com/blowleaf/streampodvms/blob/main/docs/admins_docs.md#5-configuration) section of this guide we've see how to edit the email settings.
+In case we are yet unable to receive email from StreamPod, the following may help us debug the issue - in most cases it is an issue of setting the correct username, password or TLS option
 
 Enter the Django shell, example if you're using the Single Server installation:
 
 ```bash
-source  /home/mediacms.io/bin/activate
+source  /home/streampod.io/bin/activate
 python manage.py shell
 ```
 
@@ -742,8 +742,8 @@ Newly added video files now will be able to produce the sprites file needed for 
 
 
 ```
-root@8433f923ccf5:/home/mediacms.io/mediacms# source  /home/mediacms.io/bin/activate
-root@8433f923ccf5:/home/mediacms.io/mediacms# python manage.py shell
+root@8433f923ccf5:/home/streampod.io/streampod# source  /home/streampod.io/bin/activate
+root@8433f923ccf5:/home/streampod.io/streampod# python manage.py shell
 Python 3.8.14 (default, Sep 13 2022, 02:23:58)
 ```
 
