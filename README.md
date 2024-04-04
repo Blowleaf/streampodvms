@@ -19,7 +19,7 @@ StreamPod VMS is a modern, fully featured open core video management system. It 
 - **Configurable actions**: allow download, add comments, add likes, dislikes, report media
 - **Configuration options**: change logos, fonts, styling, add more pages
 - **Enhanced video player**: customized video.js player with multiple resolution and playback speed options
-- **Multiple transcoding profiles**: sane defaults for multiple dimensions (240p, 360p, 480p, 720p, 1080p) and multiple profiles (h264, h265, vp9)
+- **Multiple transcoding profiles**: Defaults for multiple dimensions (240p, 360p, 480p, 720p, 1080p) and multiple profiles (h264, h265, vp9)
 - **Adaptive video streaming**: possible through HLS protocol
 - **Subtitles/CC**: support for multilingual subtitle files
 - **Scalable transcoding**: transcoding through priorities. Experimental support for remote workers
