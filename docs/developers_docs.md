@@ -14,7 +14,7 @@
   - [6. Working with the automated tests](#6-working-with-the-automated-tests)
 
 ## 1. Welcome
-This page is created for MediaCMS developers and contains related information.
+This page is created for StreamPod developers and contains related information.
 
 ## 2. System architecture
 
