@@ -197,13 +197,6 @@ Here we can use `jwilder/nginx-proxy` to reverse proxy to 1 or more instances of
 
 The reverse proxy (`jwilder/nginx-proxy`) can be configured to provide SSL termination using self-signed certificates, letsencrypt or CA signed certificates (see: https://hub.docker.com/r/jwilder/nginx-proxy or [LetsEncrypt Example](https://www.singularaspect.com/use-nginx-proxy-and-letsencrypt-companion-to-host-multiple-websites/) ). In this case the FRONTEND_HOST should be set to https://StreamPod.io. This is similar to [this deployment](../docker-compose-http-proxy.yaml).
 
-### A Scaleable Deployment Architecture (Docker, Swarm, Kubernetes)
-
-The architecture below generalises all the deployment scenarios above, and provides a conceptual design for other deployments based on kubernetes and docker swarm. It allows for horizontal scaleability through the use of multiple StreamPod_web instances and celery_workers. For large deployments, managed postgres, redis and storage may be adopted.
-
-![StreamPod](images/architecture.png)
-
-
 ## 5. Configuration
 Several options are available on `cms/settings.py`, most of the things that are allowed or should be disallowed are described there.
 
