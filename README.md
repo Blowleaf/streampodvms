@@ -1,13 +1,12 @@
-# StreamPod VMS
+# StreamPod VMS CE
  
-[![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/mediacms-io/mediacms/main/LICENSE.txt)
+[![GitHub license](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://raw.githubusercontent.com/blowleaf/streampodvms/main/LICENSE.txt)
 
-StreamPod VMS is a modern, fully featured open source video and media CMS. It is developed to meet the needs of modern web platforms for viewing and sharing media. It can be used to build a small to medium video and media portal within minutes. 
-
-It is built mostly using the modern stack Django + React and includes a REST API.
+StreamPod VMS is a modern, fully featured open core video management system. It is developed to meet the needs of modern web platforms for viewing and sharing media. It can be used to build a small to medium video and media portal within minutes. 
 
 ## Features
-- **Complete control over your data**: host it yourself!
+
+- **Complete control over your data**: Self-Host. 
 - **Support for multiple publishing workflows**: public, private, unlisted and custom
 - **Modern technologies**: Django/Python/Celery, React.
 - **Multiple media types support**: video, audio,  image, pdf
@@ -26,28 +25,13 @@ It is built mostly using the modern stack Django + React and includes a REST API
 - **Scalable transcoding**: transcoding through priorities. Experimental support for remote workers
 - **Chunked file uploads**: for pausable/resumable upload of content
 - **REST API**: Documented through Swagger
-
-
-## Example cases
-
-- **Schools, education.** Administrators and editors keep what content will be published, students are not distracted with advertisements and irrelevant content, plus they have the ability to select either to stream or download content.
-
-- **Organization sensitive content.** In cases where content is sensitive and cannot be uploaded to external sites.
-
-- **Build a great community.** StreamPod VMS can be customized (URLs, logos, fonts, aesthetics) so that you create a highly customized video portal for your community!
-
-- **Personal portal.** Organize, categorize and host your content the way you prefer.
-
-
-## Philosophy
-
-We believe there's a need for quality open source web applications that can be used to build community portals and support collaboration. 
-
-We have three goals for StreamPod VMS: a) deliver all functionality one would expect from a modern system, b) allow for easy installation and maintenance, c) allow easy customization and addition of features. 
+- **Plugins**: Extended usecases with the ability to plugin solutions provided on StreamPod EE.
 
 ## Installation / Maintanance
 
-There are two ways to run StreamPod VMS, through Docker Compose and through installing it on a server via an automation script that installs and configures all needed services. Find the related pages:
+The recommended way to run a local instance of StreamPod VMS CE is through Docker Compose, a simple ```docker compose up``` command should deploy the stack. There are other methods available through installing it on a server via an automation script that installs and configures all needed services but due to the demanding nature of video streaming containers and orchestration are more suitable deplyoment targets. 
+
+Find the related pages:
 
 * [Single Server](docs/admins_docs.md#2-server-installation) page
 * [Docker Compose](docs/admins_docs.md#3-docker-installation) page
@@ -65,6 +49,6 @@ Visit [Configuration](docs/admins_docs.md#5-configuration) page.
 
 ## Credits
 
-Foked from Original GitHub repo by Markos Gogoulos and Yiannis Stergiou; https://github.com/mediacms-io/mediacms
+Forked from Original GitHub repo by Markos Gogoulos and Yiannis Stergiou; https://github.com/mediacms-io/mediacms
 
 
