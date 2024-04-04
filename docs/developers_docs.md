@@ -111,10 +111,6 @@ original.mp4 (1G, 720px)--> Encode1 (100MB, 240px, chunk=True), Encode2 (100MB, 
 
 Apparently the Encode object is used to store Encoded files that are served eventually (chunk=False, status='success'), but also files while they are on their way to get transcoded (chunk=True, status='pending/etc')
 
-(Parenthesis opening)
-there is also an experimental small service (not commited to the repo currently) that speaks only through API and a) gets tasks to run, b) returns results. So it makes a request and receives an ffmpeg command, plus a file, it runs the ffmpeg command, and returns the result.I've used this mechanism on a number of installations to migrate existing videos through more servers/cpu and has worked with only one problem, some temporary files needed to be removed from the servers (through a periodic task, not so big problem)
-(Parenthesis closing)
-
 
 When the Encode object is marked as success and chunk=False, and thus is available for download/stream, there is a task that gets started and saves an HLS version of the file (1 mp4-->x number of small .ts chunks). This would be FILES_C
 
@@ -156,5 +152,3 @@ docker-compose exec --env TESTING=True -T web pytest tests/test_fixtures.py
 ```
 docker-compose exec --env TESTING=True -T web pytest --cov=. --cov-report=html
 ```
-
-and of course...you are very welcome to help us increase it ;)
