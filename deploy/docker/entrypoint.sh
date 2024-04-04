@@ -7,7 +7,7 @@ ln -sf /dev/stdout /var/log/nginx/streampod.io.access.log && ln -sf /dev/stderr 
 
 cp /home/streampod.io/streampod/deploy/docker/local_settings.py /home/streampod.io/streampod/cms/local_settings.py
 
-mkdir -p /home/streampod.io/streampod/{logs,media_files/hls}
+mkdir -p /home/streampod.io/streampod/{logs,plugins,media_files/hls}
 touch /home/streampod.io/streampod/logs/debug.log
 
 mkdir -p /var/run/streampod

@@ -25,3 +25,4 @@ ocanolog.md
 static/.DS_Store
 static/images/.DS_Store
 .env
+plugins/

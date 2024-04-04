@@ -33,10 +33,10 @@ Make sure you run it as user root, on a clear system, since the automatic script
 Automated script - tested on Ubuntu 20, Ubuntu 22 and Debian Buster
 
 ```bash
-mkdir /home/StreamPod.io && cd /home/StreamPod.io/
+mkdir /home/streampod.io && cd /home/streampod.io/
 git clone https://github.com/Blowleaf/streampodvms
-mv streampodvms StreamPod 
-cd /home/StreamPod.io/StreamPod/ && bash ./install.sh
+mv streampodvms streampod 
+cd /home/streampod.io/streampod/ && bash ./install.sh
 ```
 
 The script will ask if you have a URL where you want to deploy StreamPod, otherwise it will use localhost. If you provide a URL, it will use Let's Encrypt service to install a valid ssl certificate.
@@ -47,13 +47,13 @@ The script will ask if you have a URL where you want to deploy StreamPod, otherw
 If you've used the above way to install StreamPod, update with the following:
 
 ```bash
-cd /home/StreamPod.io/StreamPod # enter StreamPod directory
-source  /home/StreamPod.io/bin/activate # use virtualenv
-git config --global --add safe.directory /home/StreamPod.io/StreamPod # Due to updated named directory
+cd /home/streampod.io/streampod # enter streampod directory
+source  /home/streampod.io/bin/activate # use virtualenv
+git config --global --add safe.directory /home/streampod.io/streampod # Due to updated named directory
 sudo git pull # update code
 pip install -r requirements.txt -U # run pip install to update
 python manage.py migrate # run Django migrations(Find managage.py 20231101)
-sudo systemctl restart StreamPod celery_long celery_short # restart services
+sudo systemctl restart streampod celery_long celery_short # restart services
 ```
 
 ### Update from version 2 to version 3
@@ -75,7 +75,8 @@ Checkout the configuration section here.
 
 
 ### Maintenance
-Database can be backed up with pg_dump and media_files on /home/StreamPod.io/StreamPod/media_files include original files and encoded/transcoded versions
+Database can be backed up with pg_dump and media_files on /home/streampod.io/streampod/media_files include original files and encoded/transcoded versions
+
 
 
 ## 3. Docker Installation
@@ -95,8 +96,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 Then run as root
 
 ```bash
-git clone https://github.com/StreamPod-io/StreamPod
-cd StreamPod
+git clone https://github.com/blowleaf/streampodvms
+cd streampod
 ```
 
 The default option is to serve StreamPod on all ips available of the server (including localhost).
@@ -123,8 +124,8 @@ or if you have set the ADMIN_PASSWORD variable on docker-compose file you have u
 Get latest StreamPod image and stop/start containers
 
 ```bash
-cd /path/to/StreamPod/installation
-docker pull StreamPod/StreamPod
+cd /path/to/streampod/installation
+docker pull streampod/streampod
 docker-compose down
 docker-compose up
 ```
@@ -137,13 +138,10 @@ db_1              | 2023-06-27 11:07:42.959 UTC [1] FATAL:  database files are i
 db_1              | 2023-06-27 11:07:42.959 UTC [1] DETAIL:  The data directory was initialized by PostgreSQL version 13, which is not compatible with this version 15.2.
 ```
 
-At this point there are two options: either edit the Docker Compose file and make use of the existing postgres:13 image, or otherwise you have to perform the migration from postgresql 13 to version 15. More notes on https://github.com/StreamPod-io/StreamPod/pull/749
-
-
+At this point there are two options: either edit the Docker Compose file and make use of the existing postgres:13 image, or otherwise you have to perform the migration from postgresql 13 to version 15. 
 
 ## Configuration
 Checkout the configuration docs here.
-
 
 ### Maintenance
 Database is stored on ../postgres_data/ and media_files on media_files/
@@ -151,7 +149,7 @@ Database is stored on ../postgres_data/ and media_files on media_files/
 
 ## 4. Docker Deployment options
 
-The StreamPod image is built to use supervisord as the main process, which manages one or more services required to run StreamPod. We can toggle which services are run in a given container by setting the environment variables below to `yes` or `no`:
+The streampod image is built to use supervisord as the main process, which manages one or more services required to run streampod. We can toggle which services are run in a given container by setting the environment variables below to `yes` or `no`:
 
 * ENABLE_UWSGI
 * ENABLE_NGINX
@@ -170,7 +168,7 @@ To run, update the configs above if necessary, build the image by running `docke
 
 ### Simple Deployment, accessed as http://localhost
 
-The main container runs migrations, StreamPod_web, celery_beat, celery_workers (celery_short and celery_long services), exposed on port 80 supported by redis and postgres database.
+The main container runs migrations, streampod_web, celery_beat, celery_workers (celery_short and celery_long services), exposed on port 80 supported by redis and postgres database.
 
  The FRONTEND_HOST in `deploy/docker/local_settings.py` is configured as http://localhost, on the docker host machine.
 
@@ -187,15 +185,21 @@ Now run docker-compose -f docker-compose-letsencrypt.yaml up, when installation 
 
 ### Advanced Deployment, accessed as http://localhost:8000
 
-Here we can run 1 StreamPod_web instance, with the FRONTEND_HOST in `deploy/docker/local_settings.py` configured as http://localhost:8000. This is bootstrapped by a single migrations instance and supported by a single celery_beat instance and 1 or more celery_worker instances. Redis and postgres containers are also used for persistence. Clients can access the service on http://localhost:8000, on the docker host machine. This is similar to [this deployment](../docker-compose.yaml), with a `port` defined in FRONTEND_HOST.
+Here we can run 1 streampod_web instance, with the FRONTEND_HOST in `deploy/docker/local_settings.py` configured as http://localhost:8000. This is bootstrapped by a single migrations instance and supported by a single celery_beat instance and 1 or more celery_worker instances. Redis and postgres containers are also used for persistence. Clients can access the service on http://localhost:8000, on the docker host machine. This is similar to [this deployment](../docker-compose.yaml), with a `port` defined in FRONTEND_HOST.
 
-### Advanced Deployment, with reverse proxy, accessed as http://StreamPod.io
+### Advanced Deployment, with reverse proxy, accessed as http://streampod.io
 
-Here we can use `jwilder/nginx-proxy` to reverse proxy to 1 or more instances of StreamPod_web supported by other services as mentioned in the previous deployment. The FRONTEND_HOST in `deploy/docker/local_settings.py` is configured as http://StreamPod.io, nginx-proxy has port 80 exposed. Clients can access the service on http://StreamPod.io (Assuming DNS or the hosts file is setup correctly to point to the IP of the nginx-proxy instance). This is similar to [this deployment](../docker-compose-http-proxy.yaml).
+Here we can use `jwilder/nginx-proxy` to reverse proxy to 1 or more instances of streampod_web supported by other services as mentioned in the previous deployment. The FRONTEND_HOST in `deploy/docker/local_settings.py` is configured as http://streampod.io, nginx-proxy has port 80 exposed. Clients can access the service on http://streampod.io (Assuming DNS or the hosts file is setup correctly to point to the IP of the nginx-proxy instance). This is similar to [this deployment](../docker-compose-http-proxy.yaml).
 
 ### Advanced Deployment, with reverse proxy, accessed as https://localhost
 
-The reverse proxy (`jwilder/nginx-proxy`) can be configured to provide SSL termination using self-signed certificates, letsencrypt or CA signed certificates (see: https://hub.docker.com/r/jwilder/nginx-proxy or [LetsEncrypt Example](https://www.singularaspect.com/use-nginx-proxy-and-letsencrypt-companion-to-host-multiple-websites/) ). In this case the FRONTEND_HOST should be set to https://StreamPod.io. This is similar to [this deployment](../docker-compose-http-proxy.yaml).
+The reverse proxy (`jwilder/nginx-proxy`) can be configured to provide SSL termination using self-signed certificates, letsencrypt or CA signed certificates (see: https://hub.docker.com/r/jwilder/nginx-proxy or [LetsEncrypt Example](https://www.singularaspect.com/use-nginx-proxy-and-letsencrypt-companion-to-host-multiple-websites/) ). In this case the FRONTEND_HOST should be set to https://streampod.io. This is similar to [this deployment](../docker-compose-http-proxy.yaml).
+
+### A Scaleable Deployment Architecture (Docker, Swarm, Kubernetes)
+
+The architecture below generalises all the deployment scenarios above, and provides a conceptual design for other deployments based on kubernetes and docker swarm. It allows for horizontal scaleability through the use of multiple streampod_web instances and celery_workers. For large deployments, managed postgres, redis and storage may be adopted.
+
+![StreamPod](images/architecture.png)
 
 ## 5. Configuration
 Several options are available on `cms/settings.py`, most of the things that are allowed or should be disallowed are described there.
@@ -211,7 +215,7 @@ Any change needs restart of StreamPod in order to take effect.
 Single server installation: edit `cms/local_settings.py`, make a change and restart StreamPod
 
 ```bash
-#systemctl restart StreamPod
+systemctl restart streampod
 ```
 
 Docker Compose installation: edit `deploy/docker/local_settings.py`, make a change and restart StreamPod containers
@@ -335,14 +339,14 @@ PRE_UPLOAD_MEDIA_MESSAGE = 'custom message'
 Set correct settings per provider
 
 ```
-DEFAULT_FROM_EMAIL = 'info@StreamPod.io'
+DEFAULT_FROM_EMAIL = 'info@streampod.io'
 EMAIL_HOST_PASSWORD = 'xyz'
-EMAIL_HOST_USER = 'info@StreamPod.io'
+EMAIL_HOST_USER = 'info@streampod.io'
 EMAIL_USE_TLS = True
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-EMAIL_HOST = 'StreamPod.io'
+EMAIL_HOST = 'streampod.io'
 EMAIL_PORT = 587
-ADMIN_EMAIL_LIST = ['info@StreamPod.io']
+ADMIN_EMAIL_LIST = ['info@streampod.io']
 ```
 
 ### 5.13 Disallow user registrations from specific domains
@@ -610,15 +614,16 @@ checkElement('.nav-menu')
 });
 ```
 
-### 9. Restart the StreamPod web server
+### 9. Restart the streampod web server
 On docker:
 ```
-sudo docker stop StreamPod_web_1 && sudo docker start StreamPod_web_1
+sudo docker stop streampod_web_1 && sudo docker start streampod_web_1
+
 ```
 
 Otherwise
 ```
-sudo systemctl restart StreamPod
+sudo systemctl restart streampod
 ```
 
 
@@ -627,11 +632,11 @@ Instructions contributed by @alberto98fx
 
 1. Create a file:
 
-``` touch $DIR/StreamPod/templates/tracking.html ```
+``` touch $DIR/streampod/templates/tracking.html ```
 
 2. Add the Gtag/Analytics script
 
-3. Inside ``` $DIR/StreamPod/templates/root.html``` you'll see a file like this one:
+3. Inside ``` $DIR/streampod/templates/root.html``` you'll see a file like this one:
 
 ```
 <head>
@@ -665,28 +670,26 @@ Instructions contributed by @alberto98fx
 
 5. If you are using Docker and didn't  mount the entire dir you need to bind a new volume:
 ```
-
     web:
-    image: StreamPod/StreamPod:latest
+    image: ocano/streampod-vms:latest
     restart: unless-stopped
     ports:
       - "80:80"
     deploy:
       replicas: 1
     volumes:
-      - ./templates/root.html:/home/StreamPod.io/StreamPod/templates/root.html
-      - ./templates/tracking.html://home/StreamPod.io/StreamPod/templates/tracking.html
-
+      - ./templates/root.html:/home/streampod.io/streampod/templates/root.html
+      - ./templates/tracking.html:/home/streampod.io/streampod/templates/tracking.html
  ```
 
 ## 15. Debugging email issues
-On the [Configuration](https://github.com/StreamPod-io/StreamPod/blob/main/docs/admins_docs.md#5-configuration) section of this guide we've see how to edit the email settings.
+On the [Configuration](https://github.com/blowleaf/streampodvms/blob/main/docs/admins_docs.md#5-configuration) section of this guide we've see how to edit the email settings.
 In case we are yet unable to receive email from StreamPod, the following may help us debug the issue - in most cases it is an issue of setting the correct username, password or TLS option
 
 Enter the Django shell, example if you're using the Single Server installation:
 
 ```bash
-source  /home/StreamPod.io/bin/activate
+source  /home/streampod.io/bin/activate
 python manage.py shell
 ```
 
@@ -735,8 +738,8 @@ Newly added video files now will be able to produce the sprites file needed for 
 
 
 ```
-root@8433f923ccf5:/home/StreamPod.io/StreamPod# source  /home/StreamPod.io/bin/activate
-root@8433f923ccf5:/home/StreamPod.io/StreamPod# python manage.py shell
+root@8433f923ccf5:/home/streampod.io/streampod# source  /home/streampod.io/bin/activate
+root@8433f923ccf5:/home/streampod.io/streampod# python manage.py shell
 Python 3.8.14 (default, Sep 13 2022, 02:23:58)
 ```
 

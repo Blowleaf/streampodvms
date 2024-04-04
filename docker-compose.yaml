@@ -6,7 +6,7 @@ volumes:
 
 services:
   migrations:
-    image: ocano/streampod-vms:v1.1.2
+    image: ocano/streampod-vms:v1.1.3
     ports:
     - 8000
     volumes:
@@ -28,7 +28,7 @@ services:
       db:
         condition: service_healthy
   web:
-    image: ocano/streampod-vms:v1.1.2
+    image: ocano/streampod-vms:v1.1.3
     deploy:
       replicas: 1
     ports:
@@ -43,7 +43,7 @@ services:
     depends_on:
       - migrations
   celery-beat:
-    image: ocano/streampod-vms:v1.1.2
+    image: ocano/streampod-vms:v1.1.3
     ports:
     - 6379
     volumes:
@@ -57,7 +57,7 @@ services:
     depends_on:
       - redis
   celery-worker:
-    image: ocano/streampod-vms:v1.1.2
+    image: ocano/streampod-vms:v1.1.3
     ports:
     - 6379
     deploy:
