@@ -1,6 +1,4 @@
 # StreamPod VMS CE
- 
-[![GitHub license](https://img.shields.io/badge/License-MIT%20v3-blue.svg)](https://raw.githubusercontent.com/blowleaf/streampodvms/main/LICENSE)
 
 StreamPod VMS CE is a modern, fully-featured open-core video management system. It is developed to meet the needs of modern web platforms for viewing and sharing media. It can be used to build a small to medium video and media portal within minutes.
 
