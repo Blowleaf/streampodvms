@@ -78,6 +78,7 @@ Checkout the configuration section here.
 Database can be backed up with pg_dump and media_files on /home/streampod.io/streampod/media_files include original files and encoded/transcoded versions
 
 
+
 ## 3. Docker Installation
 
 ## Installation
@@ -95,7 +96,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 Then run as root
 
 ```bash
-git clone https://github.com/blowleaf/streampodcms
+git clone https://github.com/blowleaf/streampodvms
 cd streampod
 ```
 
@@ -137,13 +138,10 @@ db_1              | 2023-06-27 11:07:42.959 UTC [1] FATAL:  database files are i
 db_1              | 2023-06-27 11:07:42.959 UTC [1] DETAIL:  The data directory was initialized by PostgreSQL version 13, which is not compatible with this version 15.2.
 ```
 
-At this point there are two options: either edit the Docker Compose file and make use of the existing postgres:13 image, or otherwise you have to perform the migration from postgresql 13 to version 15. More notes on https://github.com/streampod-io/streampod/pull/749
-
-
+At this point there are two options: either edit the Docker Compose file and make use of the existing postgres:13 image, or otherwise you have to perform the migration from postgresql 13 to version 15. 
 
 ## Configuration
 Checkout the configuration docs here.
-
 
 ### Maintenance
 Database is stored on ../postgres_data/ and media_files on media_files/
@@ -203,7 +201,6 @@ The architecture below generalises all the deployment scenarios above, and provi
 
 ![StreamPod](images/architecture.png)
 
-
 ## 5. Configuration
 Several options are available on `cms/settings.py`, most of the things that are allowed or should be disallowed are described there.
 
@@ -218,7 +215,7 @@ Any change needs restart of StreamPod in order to take effect.
 Single server installation: edit `cms/local_settings.py`, make a change and restart StreamPod
 
 ```bash
-#systemctl restart streampod
+systemctl restart streampod
 ```
 
 Docker Compose installation: edit `deploy/docker/local_settings.py`, make a change and restart StreamPod containers
@@ -621,6 +618,7 @@ checkElement('.nav-menu')
 On docker:
 ```
 sudo docker stop streampod_web_1 && sudo docker start streampod_web_1
+
 ```
 
 Otherwise
@@ -672,7 +670,6 @@ Instructions contributed by @alberto98fx
 
 5. If you are using Docker and didn't  mount the entire dir you need to bind a new volume:
 ```
-
     web:
     image: ocano/streampod-vms:latest
     restart: unless-stopped
@@ -682,8 +679,7 @@ Instructions contributed by @alberto98fx
       replicas: 1
     volumes:
       - ./templates/root.html:/home/streampod.io/streampod/templates/root.html
-      - ./templates/tracking.html://home/streampod.io/streampod/templates/tracking.html
-
+      - ./templates/tracking.html:/home/streampod.io/streampod/templates/tracking.html
  ```
 
 ## 15. Debugging email issues
