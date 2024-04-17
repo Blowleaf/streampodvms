@@ -27,7 +27,7 @@ StreamPod VMS Community Edition is a modern, fully-featured open-core video mana
 
 ## Installation / Maintenance
 
-The recommended way to run a local instance of StreamPod VMS is through Docker Compose. A simple `docker compose up` command should deploy the stack. There are other methods available through installing it on a server via an automation script that installs and configures all needed services. However, due to the demanding nature of video streaming, containers and orchestration are more suitable deployment targets.
+The recommended way to run a local instance of StreamPod VMS is through Docker Compose. After building the image for your target environment or archicteture, A simple `docker compose up` command should deploy the stack. There are other methods available through installing it on a server via an automation script that installs and configures all needed services. However, due to the demanding nature of video streaming, containers and orchestration are more suitable deployment targets.
 
 Find the related pages:
 
