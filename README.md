@@ -1,6 +1,6 @@
 # StreamPod VMS CE
 
-StreamPod VMS Community Edition is a modern, fully-featured open-core video management system. It is developed to meet the needs of modern web platforms for viewing and sharing media. It can be used to build a scalable video and media portal within minutes.
+StreamPod VMS Community Edition is a modern, fully-featured open-core video management system. It is developed to meet the needs of modern web platforms for viewing and sharing media. It can be used to build a scalable video and media management stacks.
 
 ## Features
 
