@@ -4,3 +4,5 @@ celerybeat-schedule
 ocanolog.md
 .DS_Store
 CODE_OF_CONDUCT.md
+plugins/
+.vscode
