@@ -6,6 +6,7 @@
 # sudo cd /home/streampod.io/streampod/ && bash ./streampod_install_ubuntu_arm.sh
 # source  /home/streampod.io/bin/activate
 # press enter on localhost and portal name. 
+# make .env
 
 # should be run as root and only on Ubuntu 20/22/24, Debian 10/11 (Buster/Bullseye) versions!
 echo "Welcome to the StreamPod installation!";
