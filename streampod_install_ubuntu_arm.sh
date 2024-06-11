@@ -1,7 +1,7 @@
 #!/bin/bash
 ## Ubuntu AWS Flow: 
 # sudo mkdir /home/streampod.io && cd /home/streampod.io/
-# sudo git clone https://github.com/Blowleaf/streampodvms
+# sudo git clone -b ec2-ubuntu https://github.com/Blowleaf/streampodvms 
 # sudo mv streampodvms streampod 
 # sudo cd /home/streampod.io/streampod/ && bash ./streampod_install_ubuntu_arm.sh
 # source  /home/streampod.io/bin/activate
@@ -32,7 +32,7 @@ done
 osVersion=$(lsb_release -d)
 if [[ $osVersion == *"Ubuntu 24"* ]] || [[ $osVersion == *"Ubuntu 22"* ]] ||  [[ $osVersion == *"Ubuntu 20"* ]] || [[ $osVersion == *"buster"* ]] || [[ $osVersion == *"bullseye"* ]]; then
     echo 'Performing system update and dependency installation, this will take a few minutes'
-sudo apt-get update && apt-get -y upgrade && apt-get install python-is-python3 python3-venv python3-dev python3-virtualenv python-is-python3 uwsgi redis-server postgresql nginx git gcc vim unzip imagemagick python3-certbot-nginx certbot wget xz-utils -y
+sudo apt-get update && apt-get -y upgrade && apt-get install python-is-python3 python3-pip python3-venv python3-dev python3-virtualenv python-is-python3 uwsgi redis-server postgresql nginx git gcc vim unzip imagemagick python3-certbot-nginx certbot wget xz-utils -y
     sudo snap install aws-cli --classic
 else
     echo "This script is tested for Ubuntu 20/22/24 versions only, if you want to try StreamPod on another system you have to perform the manual installation"
