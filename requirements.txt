@@ -5,7 +5,7 @@ psycopg==3.1.9
 django-redis==5.3.0
 celery==5.3.1
 drf-yasg==1.21.6
-Pillow==9.5.0
+Pillow
 django-imagekit==4.1.0
 markdown==3.4.3
 django-filter==23.2

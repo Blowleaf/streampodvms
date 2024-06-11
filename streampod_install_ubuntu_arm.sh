@@ -63,7 +63,8 @@ su -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE streampod TO streampod\"" post
 echo 'Creating python virtualenv on /home/streampod.io'
 
 cd /home/streampod.io
-virtualenv . --python=python3
+pwd
+virtualenv . --python=python3 --require-virtualenv
 source /home/streampod.io/bin/activate
 cd streampod
 pip install -r requirements.txt
@@ -144,10 +145,10 @@ fi
 
 # Bento4 utility installation, for HLS
 
-cd /home/streampod.io/streampod
-wget http://zebulon.bok.net/Bento4/binaries/Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip
-unzip Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip
-mkdir /home/streampod.io/streampod/media_files/hls
+# Install ARM optimized Bento4 to PATH
+sudo wget https://www.deb-multimedia.org/pool/main/b/bento4-dmo/bento4_1.6.0.640-dmo1_arm64.deb
+sudo apt-get install -y ./bento4_1.6.0.640-dmo1_arm64.deb
+sudo rm ./bento4_1.6.0.640-dmo1_arm64.deb
 
 # last, set default owner
 chown -R www-data: /home/streampod.io/
