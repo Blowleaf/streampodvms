@@ -1,4 +1,4 @@
-/home/mediacms.io/mediacms/logs/*.log {
+/home/streampod.io/streampod/logs/*.log {
   weekly
   missingok
   rotate 7
