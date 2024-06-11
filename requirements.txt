@@ -2,10 +2,11 @@ django==4.2.2
 djangorestframework==3.14.0
 django-allauth==0.54.0
 psycopg==3.1.9
+uwsgi==2.0.26
 django-redis==5.3.0
 celery==5.3.1
 drf-yasg==1.21.6
-Pillow
+Pillow==9.5.0
 django-imagekit==4.1.0
 markdown==3.4.3
 django-filter==23.2

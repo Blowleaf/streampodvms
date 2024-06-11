@@ -1,37 +1,16 @@
 #!/bin/bash
 ## Ubuntu AWS Flow: 
-# sudo mkdir /home/streampod.io && cd /home/streampod.io/
-# sudo git clone -b ec2-ubuntu https://github.com/Blowleaf/streampodvms 
-# sudo mv streampodvms streampod 
-# press enter on localhost and portal name. 
-# sudo apt-get update
-# sudo apt-get -y ugrade 
-# sudo apt-get install python-is-python3 python3-pip python3-venv python3-dev python3-virtualenv python-is-python3 -y
-# apt-get install uwsgi redis-server postgresql nginx git gcc vim unzip imagemagick python3-certbot-nginx certbot wget xz-utils -y
-# sudo snap install aws-cli --classic
-
-# DATABASE BOOTSTRAP
-# sudo su - (goes to root)
-# sudo passwd postgres(setup password... use postgres)
-# Go back to ubuntu and run 
-# su -c "psql -c \"CREATE DATABASE streampod\"" postgres
-# su -c "psql -c \"CREATE USER streampod WITH ENCRYPTED PASSWORD 'streampod'\"" postgres
-# su -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE streampod TO streampod\"" postgres
-# postgres-#  \d - to test 
-# DATABASE BOOTSTRAP
-
-# VIRTUAL ENVIROMENT
-# 'Create python virtualenv on /home/streampod.io'
-# cd /home/streampod.io
-# sudo virtualenv . --python=python
-# source  /home/streampod.io/bin/activate
-# sudo bash ./streampod_install_ubuntu_arm.sh
-# VIRTUAL ENVIROMENT
-
-# test DB. 
-# sudo cd /home/streampod.io/streampod/ && bash ./streampod_install_ubuntu_arm.sh
-
-# should be run as root and only on Ubuntu 20/22/24, Debian 10/11 (Buster/Bullseye) versions!
+## VIP ##
+## Use AWS's Ubuntu 22 should be run as root(use sudo su -")*** and only on Ubuntu 20/22, Debian 10/11 (Buster/Bullseye) versions!
+## VIP ##
+# mkdir /home/streampod.io && cd /home/streampod.io/
+# git clone -b ec2-ubuntu https://github.com/Blowleaf/streampodvms 
+# mv streampodvms streampod 
+# cd streampod
+# chmod 777 install.sh
+# bash ./install.sh
+# press enter on localhost and portal name.
+# escape the pink prompts.  
 echo "Welcome to the StreamPod installation!";
 
 if [ `id -u` -ne 0 ]
@@ -53,15 +32,14 @@ It is expected to run on a new system **with no running instances of any these s
 done
 
 
-# osVersion=$(lsb_release -d)
-# if [[ $osVersion == *"Ubuntu 24"* ]] || [[ $osVersion == *"Ubuntu 22"* ]] ||  [[ $osVersion == *"Ubuntu 20"* ]] || [[ $osVersion == *"buster"* ]] || [[ $osVersion == *"bullseye"* ]]; then
-#     echo 'Performing system update and dependency installation, this will take a few minutes'
-#     sudo apt-get update && apt-get -y upgrade && apt-get install uwsgi redis-server postgresql nginx git gcc vim unzip imagemagick python3-certbot-nginx certbot wget xz-utils -y
-#     sudo snap install aws-cli --classic
-# else
-#     echo "This script is tested for Ubuntu 20/22/24 versions only, if you want to try StreamPod on another system you have to perform the manual installation"
-#     exit
-# fi
+osVersion=$(lsb_release -d)
+if [[ $osVersion == *"Ubuntu 20"* ]] || [[ $osVersion == *"Ubuntu 22"* ]] || [[ $osVersion == *"buster"* ]] || [[ $osVersion == *"bullseye"* ]]; then
+    echo 'Performing system update and dependency installation, this will take a few minutes'
+    apt-get update && apt-get -y upgrade && apt-get install python3-venv python3-dev virtualenv redis-server postgresql nginx git gcc vim unzip imagemagick python3-certbot-nginx certbot wget xz-utils -y
+else
+    echo "This script is tested for Ubuntu 20/22 versions only, if you want to try StreamPod on another system you have to perform the manual installation"
+    exit
+fi
 
 # install ffmpeg
 echo "Downloading and installing ffmpeg"
@@ -78,19 +56,18 @@ read -p "Enter portal name, or press enter for 'StreamPod : " PORTAL_NAME
 [ -z "$PORTAL_NAME" ] && PORTAL_NAME='StreamPod'
 [ -z "$FRONTEND_HOST" ] && FRONTEND_HOST='localhost'
 
-# echo 'Creating database to be used in StreamPod'
+echo 'Creating database to be used in StreamPod'
 
-# su -c "psql -c \"CREATE DATABASE streampod\"" postgres
-# su -c "psql -c \"CREATE USER streampod WITH ENCRYPTED PASSWORD 'streampod'\"" postgres
-# su -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE streampod TO streampod\"" postgres
+su -c "psql -c \"CREATE DATABASE streampod\"" postgres
+su -c "psql -c \"CREATE USER streampod WITH ENCRYPTED PASSWORD 'streampod'\"" postgres
+su -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE streampod TO streampod\"" postgres
 
-echo 'Activating virtualenv'
+echo 'Creating python virtualenv on /home/streampod.io'
 
 cd /home/streampod.io
-source /home/streampod.io/bin/activate
+virtualenv . --python=python3
+source  /home/streampod.io/bin/activate
 cd streampod
-pwd
-whoami
 pip install -r requirements.txt
 
 SECRET_KEY=`python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
@@ -103,7 +80,6 @@ sed -i s/localhost/$FRONTEND_HOST/g deploy/local_install/streampod.io
 
 FRONTEND_HOST_HTTP_PREFIX='http://'$FRONTEND_HOST
 
-# Creates local_settings!!!
 echo 'FRONTEND_HOST='\'"$FRONTEND_HOST_HTTP_PREFIX"\' >> cms/local_settings.py
 echo 'PORTAL_NAME='\'"$PORTAL_NAME"\' >> cms/local_settings.py
 echo "SSL_FRONTEND_HOST = FRONTEND_HOST.replace('http', 'https')" >> cms/local_settings.py
@@ -123,7 +99,7 @@ echo "from users.models import User; User.objects.create_superuser('admin', 'adm
 
 echo "from django.contrib.sites.models import Site; Site.objects.update(name='$FRONTEND_HOST', domain='$FRONTEND_HOST')" | python manage.py shell
 
-chown -R www-data: /home/streampod.io/
+chown -R www-data. /home/streampod.io/
 cp deploy/local_install/celery_long.service /etc/systemd/system/celery_long.service && systemctl enable celery_long && systemctl start celery_long
 cp deploy/local_install/celery_short.service /etc/systemd/system/celery_short.service && systemctl enable celery_short && systemctl start celery_short
 cp deploy/local_install/celery_beat.service /etc/systemd/system/celery_beat.service && systemctl enable celery_beat &&systemctl start celery_beat
@@ -169,13 +145,14 @@ else
 fi
 
 # Bento4 utility installation, for HLS
-
 # Install ARM optimized Bento4 to PATH
 sudo wget https://www.deb-multimedia.org/pool/main/b/bento4-dmo/bento4_1.6.0.640-dmo1_arm64.deb
 sudo apt-get install -y ./bento4_1.6.0.640-dmo1_arm64.deb
 sudo rm ./bento4_1.6.0.640-dmo1_arm64.deb
+mkdir media_files
+mkdir media_files/hls
 
 # last, set default owner
-chown -R www-data: /home/streampod.io/
+chown -R www-data. /home/streampod.io/
 
 echo 'StreamPod installation completed, open browser on http://'"$FRONTEND_HOST"' and login with user admin and password '"$ADMIN_PASS"''
