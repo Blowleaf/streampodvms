@@ -7,6 +7,15 @@
 # source  /home/streampod.io/bin/activate
 # press enter on localhost and portal name. 
 # make .env
+# sudo apt-get update && apt-get -y ugrade && 
+# sudo apt-get install python-is-python3 python3-pip python3-venv python3-dev python3-virtualenv python-is-python3 -y
+# 'Create python virtualenv on /home/streampod.io'
+# cd /home/streampod.io
+# sudo virtualenv . --python=python3
+# sudo bash ./streampod_install_ubuntu_arm.sh
+#  sudo su -
+# sudo passwd postgres
+# postgres-#  \d
 
 # should be run as root and only on Ubuntu 20/22/24, Debian 10/11 (Buster/Bullseye) versions!
 echo "Welcome to the StreamPod installation!";
@@ -33,7 +42,7 @@ done
 osVersion=$(lsb_release -d)
 if [[ $osVersion == *"Ubuntu 24"* ]] || [[ $osVersion == *"Ubuntu 22"* ]] ||  [[ $osVersion == *"Ubuntu 20"* ]] || [[ $osVersion == *"buster"* ]] || [[ $osVersion == *"bullseye"* ]]; then
     echo 'Performing system update and dependency installation, this will take a few minutes'
-sudo apt-get update && apt-get -y upgrade && apt-get install python-is-python3 python3-pip python3-venv python3-dev python3-virtualenv python-is-python3 uwsgi redis-server postgresql nginx git gcc vim unzip imagemagick python3-certbot-nginx certbot wget xz-utils -y
+    sudo apt-get update && apt-get -y upgrade && apt-get install uwsgi redis-server postgresql nginx git gcc vim unzip imagemagick python3-certbot-nginx certbot wget xz-utils -y
     sudo snap install aws-cli --classic
 else
     echo "This script is tested for Ubuntu 20/22/24 versions only, if you want to try StreamPod on another system you have to perform the manual installation"
@@ -61,11 +70,9 @@ su -c "psql -c \"CREATE DATABASE streampod\"" postgres
 su -c "psql -c \"CREATE USER streampod WITH ENCRYPTED PASSWORD 'streampod'\"" postgres
 su -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE streampod TO streampod\"" postgres
 
-echo 'Creating python virtualenv on /home/streampod.io'
+echo 'Activating virtualenv'
 
 cd /home/streampod.io
-pwd
-virtualenv . --python=python3 --require-virtualenv
 source /home/streampod.io/bin/activate
 cd streampod
 pip install -r requirements.txt
