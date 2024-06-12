@@ -1,13 +1,13 @@
 #!/bin/bash
 ## Ubuntu AWS Flow: 
 ## VIP ##
+# sudo su -
 ## Use AWS's Ubuntu 22 should be run as root(use sudo su -")*** and only on Ubuntu 20/22, Debian 10/11 (Buster/Bullseye) versions!
 ## VIP ##
 # mkdir /home/streampod.io && cd /home/streampod.io/
 # git clone -b ec2-ubuntu https://github.com/Blowleaf/streampodvms 
 # mv streampodvms streampod 
 # cd streampod
-# chmod 777 install.sh
 # bash ./install.sh
 # press enter on localhost and portal name.
 # escape the pink prompts.  

@@ -27,3 +27,4 @@ static/images/.DS_Store
 .env
 plugins/
 .vscode
+deploy/aws/
