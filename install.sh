@@ -9,8 +9,10 @@
 # mv streampodvms streampod 
 # cd streampod
 # bash ./install.sh
+# enter domain name(i.e; vms.streampod.io) with DNS A > Auto-assigned IP address(AWS) 
 # press enter on localhost and portal name.
 # escape the pink prompts.  
+# Test with adding site on django admin for https. 
 echo "Welcome to the StreamPod installation!";
 
 if [ `id -u` -ne 0 ]
@@ -144,10 +146,8 @@ else
     echo "will not generate new DH params for url 'localhost', using default DH params"
 fi
 
-# Bento4 utility installation, for HLS
-
-
 # Install ARM optimized Bento4 to PATH
+cd /home/streampod.io/streampod
 wget https://www.deb-multimedia.org/pool/main/b/bento4-dmo/bento4_1.6.0.640-dmo1_arm64.deb
 apt-get install -y ./bento4_1.6.0.640-dmo1_arm64.deb
 rm ./bento4_1.6.0.640-dmo1_arm64.deb
