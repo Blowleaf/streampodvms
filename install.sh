@@ -146,12 +146,14 @@ fi
 
 # Bento4 utility installation, for HLS
 
+
 # Install ARM optimized Bento4 to PATH
-cd /home/streampod.io/streampod
-wget http://zebulon.bok.net/Bento4/binaries/Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip
-unzip Bento4-SDK-1-6-0-637.x86_64-unknown-linux.zip
+wget https://www.deb-multimedia.org/pool/main/b/bento4-dmo/bento4_1.6.0.640-dmo1_arm64.deb
+apt-get install -y ./bento4_1.6.0.640-dmo1_arm64.deb
+rm ./bento4_1.6.0.640-dmo1_arm64.deb
 mkdir media_files
 mkdir media_files/hls
+
 
 # last, set default owner
 chown -R www-data. /home/streampod.io/

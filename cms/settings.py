@@ -218,9 +218,9 @@ POST_UPLOAD_AUTHOR_MESSAGE_UNLISTED_NO_COMMENTARY = ""
 CANNOT_ADD_MEDIA_MESSAGE = ""
 
 # mp4hls command, part of Bento4
-MP4HLS_COMMAND = "/home/streampod.io/bento4/bin/mp4hls"
-MP4DASH_COMMAND = "/home/streampod.io/bento4/bin/mp4dash"
-MP4INFO_COMMAND = "/home/streampod.io/bento4/bin/mp4info"
+MP4HLS_COMMAND = "/usr/bin/mp4hls"
+MP4DASH_COMMAND = "/usr/bin/mp4dash"
+MP4INFO_COMMAND = "/usr/mp4info"
 
 # highly experimental, related with remote workers
 ADMIN_TOKEN = "c2b8e1838b6128asd333ddc5e24"
